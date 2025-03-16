@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+  namespace: easyshop
+spec:
+  template:
+    spec:  
+      containers:
+        - name: migration
+          image: abhimaske/easy-shop-app-migration:latest
+          imagePullPolicy: Always
+  
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://mongodb-service:27017/easyshop"
+      restartPolicy: OnFailure
